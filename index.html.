@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191816">
+  <meta name="description" content="FlutterbyTeah Photography. Real connection, real emotion, real life.">
+  <title>FlutterbyTeah | Photography</title>
+  <style>
+    :root {
+      --bg: #191816;
+      --panel: #23221e;
+      --cream: #f0eadf;
+      --tan: #b7a181;
+      --muted: #b7b0a4;
+      --line: #4b463c;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 75px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--cream);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .topbar {
+      text-align: center;
+      padding: 10px;
+      background: var(--tan);
+      color: #191816;
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 17px 6%;
+      background: #191816f5;
+      border-bottom: 1px solid var(--line);
+    }
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 23px;
+      white-space: nowrap;
+    }
+    .logo small {
+      display: block;
+      margin-top: 4px;
+      font: 9px Arial, sans-serif;
+      letter-spacing: 4px;
+      color: var(--tan);
+    }
+    nav {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+    nav a, .eyebrow, .button, label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    nav a { color: var(--muted); }
+    nav a:hover { color: var(--cream); }
+    .menu {
+      display: none;
+      background: none;
+      color: var(--cream);
+      border: 1px solid var(--line);
+      padding: 8px 11px;
+    }
+
+    .hero {
+      min-height: 610px;
+      display: flex;
+      align-items: center;
+      padding: 80px 10%;
+      position: relative;
+      background:
+        linear-gradient(90deg, #171613ed, #171613a8 55%, #17161340),
+        linear-gradient(0deg, #19181699, transparent),
+        url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=85")
+        center 42% / cover;
+    }
+    .hero-content { max-width: 600px; }
+    .eyebrow { color: var(--tan); line-height: 1.8; }
+    h1 {
+      margin: 20px 0;
+      font: 500 clamp(53px, 8vw, 94px)/.98 Georgia, serif;
+      letter-spacing: -3px;
+    }
+    h1 em, h2 em { color: var(--tan); font-weight: normal; }
+    .hero p {
+      max-width: 420px;
+      line-height: 1.9;
+      color: #ddd5c8;
+      font-size: 14px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .button {
+      display: inline-block;
+      padding: 15px 18px;
+      border: 1px solid var(--tan);
+      cursor: pointer;
+      text-align: center;
+    }
+    .button.primary { background: var(--cream); color: var(--bg); }
+    .button.secondary { background: transparent; color: var(--cream); }
+
+    .checkline {
+      height: 8px;
+      background-color: var(--tan);
+      background-image:
+        linear-gradient(45deg, #191816 25%, transparent 25%),
+        linear-gradient(-45deg, #191816 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #191816 75%),
+        linear-gradient(-45deg, transparent 75%, #191816 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+    section { padding: 85px 9%; }
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: start;
+    }
+    h2 {
+      font: 500 clamp(36px, 5vw, 60px)/1.08 Georgia, serif;
+      margin: 15px 0 22px;
+      letter-spacing: -1px;
+    }
+    .copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 600px;
+    }
+    .portfolio { background: var(--panel); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    .section-head p { max-width: 300px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+    .photo {
+      min-height: 260px;
+      aspect-ratio: 4 / 5;
+      position: relative;
+      overflow: hidden;
+      background: #37342e;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      filter: saturate(.7);
+      transition: transform .35s;
+    }
+    .photo:hover img { transform: scale(1.04); }
+    .photo span {
+      position: absolute;
+      inset: 50% 0 0;
+      display: flex;
+      align-items: end;
+      padding: 18px;
+      background: linear-gradient(transparent, #111e);
+      font: 22px Georgia, serif;
+    }
+    .note { font-size: 11px; color: var(--muted); line-height: 1.8; }
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9%;
+      align-items: center;
+    }
+    .about-image {
+      min-height: 390px;
+      background:
+        linear-gradient(#19181618, #19181650),
+        url("https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=85")
+        center / cover;
+    }
+    .session-list { border-top: 1px solid var(--line); margin-top: 30px; }
+    .session {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+      font: 22px Georgia, serif;
+    }
+    .session span:last-child { color: var(--tan); }
+    .portal {
+      background: var(--panel);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      padding: 28px;
+    }
+    label { display: block; margin: 18px 0 9px; color: var(--tan); }
+    input, select, textarea {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--cream);
+      border-radius: 0;
+    }
+    textarea { resize: vertical; }
+    .form-message { font-size: 12px; line-height: 1.7; color: var(--tan); }
+    .booking {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 8%;
+      background: #b7a181;
+      color: #191816;
+    }
+    .booking .eyebrow, .booking h2 em { color: #514331; }
+    .booking .copy { color: #393228; }
+    .booking .panel { border-color: #857154; }
+    .booking label { color: #514331; }
+    .booking input, .booking select, .booking textarea {
+      background: #c5b294;
+      color: #191816;
+      border-color: #89785c;
+    }
+    .booking .button { background: #191816; color: var(--cream); width: 100%; margin-top: 20px; }
+    footer { padding: 42px 7% 22px; text-align: center; }
+    footer .logo { margin-bottom: 20px; }
+    footer p { color: var(--muted); font-size: 11px; line-height: 1.9; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+    .footer-links a { font-size: 11px; color: var(--tan); }
+    .copyright { border-top: 1px solid var(--line); padding-top: 18px; font-size: 10px; color: var(--muted); }
+
+    @media (max-width: 760px) {
+      header { padding: 15px 5%; }
+      .menu { display: block; }
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 20px 6%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: start;
+      }
+      nav.open { display: flex; }
+      .hero { min-height: 570px; padding: 65px 7%; }
+      section { padding: 65px 7%; }
+      .intro, .about, .portal, .booking { grid-template-columns: 1fr; gap: 30px; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+      .photo { min-height: 190px; }
+      .photo span { font-size: 17px; padding: 12px; }
+      .section-head { display: block; }
+      .about-image { min-height: 350px; }
+      .session { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">REAL CONNECTION · REAL EMOTION · REAL LIFE</div>
+
+  <header>
+    <a class="logo" href="#home">FlutterbyTeah<small>PHOTOGRAPHY</small></a>
+    <button class="menu" onclick="toggleMenu()" aria-label="Open navigation">MENU ☰</button>
+    <nav id="nav">
+      <a href="#home" onclick="closeMenu()">HOME</a>
+      <a href="#portfolio" onclick="closeMenu()">PORTFOLIO</a>
+      <a href="#about" onclick="closeMenu()">ABOUT</a>
+      <a href="#sessions" onclick="closeMenu()">SESSIONS</a>
+      <a href="#portal" onclick="closeMenu()">CLIENTS</a>
+      <a href="#booking" onclick="closeMenu()">CONTACT</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">NORTHERN CALIFORNIA · LIFESTYLE PHOTOGRAPHY</div>
+        <h1>Your life.<br>Your people.<br><em>Your story.</em></h1>
+        <p>Not here for perfect poses. Here for the windblown hair, the real laughs, the messy moments, and the memories that feel like you.</p>
+        <div class="actions">
+          <a class="button primary" href="#portfolio">SEE THE WORK ↗</a>
+          <a class="button secondary" href="#booking">LET'S TALK ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="checkline"></div>
+
+    <section class="intro">
+      <div class="eyebrow">01 / THE FEELING</div>
+      <div>
+        <h2>Less posing.<br><em>More living.</em></h2>
+        <p class="copy">Your life doesn't have to look perfect to be worth remembering. I want the little looks, the loud laughs, the chaos, the connection, and all the in-between stuff. Come as you are. We'll make something that feels like you.</p>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <div class="eyebrow">02 / THE GOOD STUFF</div>
+      <div class="section-head">
+        <h2>Stories worth <em>keeping.</em></h2>
+        <p class="copy">Every session is different. Every story gets room to be its own thing.</p>
+      </div>
+      <div class="grid">
+        <a class="photo" href="#booking">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Wedding and couple photography">
+          <span>Couples & connection ↗</span>
+        </a>
+        <a class="photo" href="#booking">
+          <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80" alt="Family lifestyle photography" loading="lazy">
+          <span>Family & real life ↗</span>
+        </a>
+        <a class="photo" href="#booking">
+          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=800&q=80" alt="Maternity photography" loading="lazy">
+          <span>Maternity & milestones ↗</span>
+        </a>
+        <a class="photo" href="#booking">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Creative portrait photography" loading="lazy">
+          <span>Creative portraits ↗</span>
+        </a>
+        <a class="photo" href="#booking">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80" alt="Portrait photography" loading="lazy">
+          <span>Just being you ↗</span>
+        </a>
+        <a class="photo" href="#booking">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Couple photography" loading="lazy">
+          <span>The in-between ↗</span>
+        </a>
+      </div>
+      <p class="note">Temporary demo images are shown here. We'll replace these with your own photographs before launch.</p>
+    </section>
+
+    <div class="checkline"></div>
+
+    <section class="about" id="about">
+      <div class="about-image" role="img" aria-label="Portrait placeholder"></div>
+      <div>
+        <div class="eyebrow">03 / BEHIND THE CAMERA</div>
+        <h2>Hey, I'm <em>Teah.</em></h2>
+        <p class="copy">FlutterbyTeah is for the people who want their photos to feel like their actual lives — not a stiff version of them.</p>
+        <p class="copy">We'll make space for your personality, your people, and whatever season you're in. A little wild, a little imperfect, and completely yours.</p>
+        <a class="button secondary" href="#booking">LET'S MAKE SOMETHING ↗</a>
+      </div>
+    </section>
+
+    <section id="sessions">
+      <div class="eyebrow">04 / FIND YOUR SESSION</div>
+      <h2>Your story.<br><em>Your kind of photos.</em></h2>
+      <p class="copy">Have an idea? Bring it. Have no idea? We'll figure it out together.</p>
+      <div class="session-list">
+        <a class="session" href="#booking"><span>Couples & besties</span><span>↗</span></a>
+        <a class="session" href="#booking"><span>Family & lifestyle</span><span>↗</span></a>
+        <a class="session" href="#booking"><span>Maternity & milestones</span><span>↗</span></a>
+        <a class="session" href="#booking"><span>Creative portraits</span><span>↗</span></a>
+        <a class="session" href="#booking"><span>Seasonal & limited sessions</span><span>↗</span></a>
+      </div>
+      <p class="note">Ask about availability and current pricing. We'll add your approved prices and booking policies here.</p>
+    </section>
+
+    <section class="portal" id="portal">
+      <div>
+        <div class="eyebrow">05 / YOUR PHOTOS, YOUR SPACE</div>
+        <h2>Your private<br><em>corner.</em></h2>
+        <p class="copy">Your finished photos deserve a home of their own. The full client portal will include private galleries, favorites, downloads, and delivery updates.</p>
+        <p class="note">Client accounts are not active yet. This section is a preview, not a secure login.</p>
+      </div>
+      <div class="panel">
+        <h3 style="font-family:Georgia,serif;font-weight:normal">Client gallery access</h3>
+        <form onsubmit="galleryDemo(event)">
+          <label for="gallery">GALLERY CODE</label>
+          <input id="gallery" placeholder="Your gallery code" autocomplete="off">
+          <button class="button primary" style="width:100%;margin-top:18px" type="submit">OPEN GALLERY ↗</button>
+          <p id="gallery-message" class="form-message" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="booking" id="booking">
+      <div>
+        <div class="eyebrow">06 / YOUR TURN</div>
+        <h2>Let's make<br>something <em>real.</em></h2>
+        <p class="copy">Tell me what you're thinking. Give me the vibe, the people, the idea — or just tell me you want photos and we'll start there.</p>
+      </div>
+      <div class="panel">
+        <form onsubmit="bookingDemo(event)">
+          <label for="name">YOUR NAME *</label>
+          <input id="name" required placeholder="First and last name">
+          <label for="email">EMAIL *</label>
+          <input id="email" type="email" required placeholder="you@example.com">
+          <label for="type">SESSION TYPE *</label>
+          <select id="type" required>
+            <option value="">Choose a session</option>
+            <option>Couples / besties</option>
+            <option>Family / lifestyle</option>
+            <option>Maternity</option>
+            <option>Creative portraits</option>
+            <option>Seasonal session</option>
+            <option>Something else</option>
+          </select>
+          <label for="date">IDEAL DATE</label>
+          <input id="date" type="date">
+          <label for="idea">TELL ME YOUR IDEA</label>
+          <textarea id="idea" rows="4" placeholder="The vibe, the people, the little details..."></textarea>
+          <button class="button" type="submit">SEND INQUIRY ↗</button>
+          <p id="booking-message" class="form-message" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="logo" href="#home">FlutterbyTeah<small>PHOTOGRAPHY</small></a>
+    <div class="footer-links">
+      <a href="https://instagram.com/flutterbyteah" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
+      <a href="#booking">BOOKING INQUIRIES ↗</a>
+    </div>
+    <p>Real connection. Real emotion. Real life.</p>
+    <div class="copyright">© <span id="year"></span> FlutterbyTeah Photography</div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('nav').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('nav').classList.remove('open');
+    }
+    function galleryDemo(event) {
+      event.preventDefault();
+      document.getElementById('gallery-message').textContent =
+        'Client galleries are not connected yet. Please use your current gallery delivery method for now.';
+    }
+    function bookingDemo(event) {
+      event.preventDefault();
+      document.getElementById('booking-message').textContent =
+        'This is a design preview. Your inquiry has NOT been sent. We will connect the form to your business email in the next stage.';
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
